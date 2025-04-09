@@ -8,16 +8,16 @@ const nextConfig = {
   },
   compiler: {
     //removeConsole: true,
-    removeConsole: process.env.NODE_ENV === 'production',
+    //removeConsole: process.env.NODE_ENV === 'production',
   },
   images: {
     domains: ['lh3.googleusercontent.com', 'cvnmmwtalfhmuebkrjta.supabase.co'],
   },
-  logging: {
+  /*logging: {
     fetches: {
       fullUrl: process.env.NODE_ENV === 'development'
     }
-  },
+  },*/
 }
 
 module.exports = nextConfig
