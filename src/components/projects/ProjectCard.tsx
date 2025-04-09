@@ -111,7 +111,7 @@ export const ProjectCard = ({ project, onDelete, hideViewButton = false }: Proje
             </Button>
           )}
           
-          {(role === ROLES.PROJECT_MANAGER || role === ROLES.CLIENT) && (
+          {role === ROLES.PROJECT_MANAGER && (
             <Button
               variant="ghost"
               size="sm"
@@ -122,7 +122,7 @@ export const ProjectCard = ({ project, onDelete, hideViewButton = false }: Proje
             </Button>
           )}
           
-          {onDelete && (
+          {onDelete && role === ROLES.PROJECT_MANAGER && (
             <Button
               variant="ghost"
               size="sm"

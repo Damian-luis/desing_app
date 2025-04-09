@@ -149,7 +149,7 @@ export const ProjectList = () => {
                         <span className="sr-only">{t('projects.view')}</span>
                       </Button>
                       
-                      {(role === ROLES.PROJECT_MANAGER || role === ROLES.CLIENT) && (
+                      {role === ROLES.PROJECT_MANAGER && (
                         <Button
                           variant="ghost"
                           size="sm"
@@ -160,15 +160,17 @@ export const ProjectList = () => {
                         </Button>
                       )}
                       
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleDelete(project.id)}
-                        className="text-red-500 hover:text-red-700"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                        <span className="sr-only">{t('projects.delete')}</span>
-                      </Button>
+                      {role === ROLES.PROJECT_MANAGER && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDelete(project.id)}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                          <span className="sr-only">{t('projects.delete')}</span>
+                        </Button>
+                      )}
                     </div>
                   </TableCell>
                 </TableRow>
