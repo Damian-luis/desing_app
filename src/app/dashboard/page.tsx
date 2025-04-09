@@ -26,7 +26,7 @@ export default function DashboardPage() {
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold">{t('dashboard.welcome')} {user?.full_name || user?.email}</h1>
           
-          {(role === ROLES.PROJECT_MANAGER || role === ROLES.CLIENT) && (
+          {role === ROLES.CLIENT && (
             <Link href="/dashboard/projects/new">
               <Button size="sm">
                 {t('projects.createNewProject')}
@@ -104,7 +104,7 @@ export default function DashboardPage() {
             ) : (
               <div className="text-center py-4">
                 <p className="text-muted-foreground mb-4">No recent activity</p>
-                {(role === ROLES.PROJECT_MANAGER || role === ROLES.CLIENT) && (
+                {role === ROLES.CLIENT && (
                   <Link href="/dashboard/projects/new">
                     <Button size="sm">{t('projects.createNewProject')}</Button>
                   </Link>

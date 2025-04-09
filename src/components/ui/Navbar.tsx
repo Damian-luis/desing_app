@@ -40,7 +40,7 @@ export const Navbar = () => {
               {t('navbar.projects')}
             </Link>
             
-            {(role === ROLES.PROJECT_MANAGER || role === ROLES.CLIENT) && (
+            {role === ROLES.CLIENT && (
               <Link 
                 href="/dashboard/projects/new" 
                 className={linkClass('/dashboard/projects/new')}
