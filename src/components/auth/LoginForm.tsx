@@ -22,48 +22,36 @@ export const LoginForm = () => {
     setLoading(true)
     setError('')
 
-    const sanitizedEmail = sanitizeEmail(email)
-    const sanitizedPassword = sanitizeString(password)
-
-    if (!isValidEmail(sanitizedEmail)) {
-      setError('Please enter a valid email address')
-      setLoading(false)
-      return
-    }
-
     try {
-      console.log("Intentando iniciar sesión con:", sanitizedEmail)
+      console.log('Iniciando proceso de login...')
+      console.log('Email ingresado:', email)
       
-      const { data: user, error: userError } = await supabase
-        .from('users')
-        .select('*')
-        .eq('email', sanitizedEmail)
-        .single()
+      const sanitizedEmail = sanitizeEmail(email)
+      console.log('Email sanitizado:', sanitizedEmail)
       
-      if (userError) {
-        console.log("Error al buscar usuario:", userError)
-      } else {
-        console.log("Usuario encontrado:", user)
+      if (!isValidEmail(sanitizedEmail)) {
+        console.log('Email inválido:', sanitizedEmail)
+        throw new Error(t('errors.invalidEmail'))
       }
-      
+
+      console.log('Intentando login con Supabase...')
       const { data, error } = await supabase.auth.signInWithPassword({
         email: sanitizedEmail,
-        password: sanitizedPassword,
+        password: sanitizeString(password),
       })
-
+      
       if (error) {
-        console.error("Error de inicio de sesión:", error)
+        console.error('Error en login Supabase:', error)
         throw error
       }
 
-      console.log("Inicio de sesión exitoso, data:", data)
-      
-      const { data: sessionData } = await supabase.auth.getSession()
-      console.log("Datos de sesión:", sessionData)
+      console.log('Login exitoso:', data)
+      console.log('Usuario:', data.user)
+      console.log('Sesión:', data.session)
 
       router.push('/dashboard')
     } catch (err) {
-      console.error("Error completo:", err)
+      console.error('Error completo del login:', err)
       setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
       setLoading(false)

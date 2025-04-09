@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useLanguage } from '@/context/LanguageContext'
 import { sanitizeEmail, sanitizeString, isValidEmail } from '@/lib/utils'
+import { ROLES } from '@/lib/constants'
 
 export const RegisterForm = () => {
   const [email, setEmail] = useState('')
@@ -24,65 +25,72 @@ export const RegisterForm = () => {
     setLoading(true)
     setError('')
 
-    const sanitizedEmail = sanitizeEmail(email)
-    const sanitizedPassword = sanitizeString(password)
-    const sanitizedFullName = sanitizeString(fullName)
-    const sanitizedRole = sanitizeString(role)
-
-    if (!isValidEmail(sanitizedEmail)) {
-      setError('Please enter a valid email address')
-      setLoading(false)
-      return
-    }
-
-    if (!['client', 'designer', 'project_manager'].includes(sanitizedRole)) {
-      setError('Invalid role selected')
-      setLoading(false)
-      return
-    }
-
     try {
-      const { data: authData, error: authError } = await supabase.auth.signUp({
+      console.log('Iniciando proceso de registro...')
+      console.log('Datos ingresados:', { email, fullName, role })
+      
+      const sanitizedEmail = sanitizeEmail(email)
+      const sanitizedFullName = sanitizeString(fullName)
+      console.log('Datos sanitizados:', { 
+        email: sanitizedEmail, 
+        fullName: sanitizedFullName,
+        role 
+      })
+
+      if (!isValidEmail(sanitizedEmail)) {
+        console.log('Email inválido:', sanitizedEmail)
+        throw new Error(t('errors.invalidEmail'))
+      }
+
+      if (!Object.values(ROLES).includes(role as typeof ROLES[keyof typeof ROLES])) {
+        console.log('Rol inválido:', role)
+        throw new Error(t('errors.invalidRole'))
+      }
+
+      console.log('Intentando registro con Supabase...')
+      const { data, error } = await supabase.auth.signUp({
         email: sanitizedEmail,
-        password: sanitizedPassword,
+        password: sanitizeString(password),
         options: {
           data: {
             full_name: sanitizedFullName,
-            role: sanitizedRole
+            role: role,
           }
         }
       })
 
-      if (authError) throw authError
-      
-      console.log("Auth data:", authData)
-
-      const { error: tableError } = await supabase.rpc('check_and_create_users_table')
-      
-      if (tableError) {
-        console.error("Error checking/creating users table:", tableError)
+      if (error) {
+        console.error('Error en registro Supabase:', error)
+        throw error
       }
 
-      if (authData.user) {
-        const { error: userError } = await supabase
-          .from('users')
-          .insert([{
-            id: authData.user.id,
+      console.log('Registro exitoso:', data)
+      console.log('Usuario:', data.user)
+      console.log('Sesión:', data.session)
+
+      // Insertar en la tabla users
+      console.log('Insertando datos en tabla users...')
+      const { error: insertError } = await supabase
+        .from('users')
+        .insert([
+          {
+            id: data.user?.id,
             email: sanitizedEmail,
             full_name: sanitizedFullName,
-            role: sanitizedRole,
-          }])
+            role: role,
+          }
+        ])
 
-        if (userError) {
-          console.error("Error inserting user data:", userError)
-         
-        }
+      if (insertError) {
+        console.error('Error al insertar en tabla users:', insertError)
+        throw insertError
       }
 
-      router.push('/login')
+      console.log('Datos insertados correctamente en users')
+      router.push('/dashboard')
     } catch (err) {
-      console.error("Registration error:", err)
-      setError(err instanceof Error ? err.message : 'An error occurred during registration')
+      console.error('Error completo del registro:', err)
+      setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
       setLoading(false)
     }
