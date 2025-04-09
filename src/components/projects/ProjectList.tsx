@@ -105,11 +105,11 @@ export const ProjectList = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'pending':
-        return <span className="px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-800">Pending</span>
+        return <span className="px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-800">{t('statuses.pending')}</span>
       case 'in_progress':
-        return <span className="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">In Progress</span>
+        return <span className="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">{t('statuses.in_progress')}</span>
       case 'completed':
-        return <span className="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">Completed</span>
+        return <span className="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">{t('statuses.completed')}</span>
       default:
         return <span className="px-2 py-1 rounded-full text-xs bg-gray-100 text-gray-800">{status}</span>
     }

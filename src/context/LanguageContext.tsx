@@ -11,7 +11,7 @@ interface LanguageContextType {
   locale: Locale
   translations: Translations
   setLocale: (locale: Locale) => void
-  t: (key: string) => string
+  t: (key: string, variables?: Record<string, any>) => string
 }
 
 const defaultLanguage: Locale = 'es'
@@ -48,7 +48,7 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
     localStorage.setItem('language', locale)
   }, [locale])
 
-  const t = (key: string): string => {
+  const t = (key: string, variables?: Record<string, any>): string => {
     const keys = key.split('.')
     let value: any = translations
     
@@ -58,6 +58,12 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
         return key
       }
       value = value[k]
+    }
+    
+    if (variables) {
+      return Object.entries(variables).reduce((text, [key, value]) => {
+        return text.replace(new RegExp(`{{${key}}}`, 'g'), String(value))
+      }, value)
     }
     
     return value

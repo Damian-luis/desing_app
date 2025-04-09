@@ -8,12 +8,14 @@ import { supabase } from '@/lib/supabase'
 import { FileUploader } from '@/components/ui/file-uploader'
 import { v4 as uuidv4 } from 'uuid'
 import { sanitizeString } from '@/lib/utils'
+import { useLanguage } from '@/context/LanguageContext'
 
 interface ProjectFormProps {
   initialData?: Project
 }
 
 export const ProjectForm = ({ initialData }: ProjectFormProps) => {
+  const { t } = useLanguage()
   const [title, setTitle] = useState(initialData?.title || '')
   const [description, setDescription] = useState(initialData?.description || '')
   const [files, setFiles] = useState<File[]>([])
@@ -29,18 +31,18 @@ export const ProjectForm = ({ initialData }: ProjectFormProps) => {
 
     try {
       if (!user?.id) {
-        throw new Error('User not authenticated')
+        throw new Error(t('errors.userNotAuthenticated'))
       }
 
       const sanitizedTitle = sanitizeString(title.trim())
       const sanitizedDescription = sanitizeString(description.trim())
       
       if (!sanitizedTitle) {
-        throw new Error('Project title is required')
+        throw new Error(t('errors.titleRequired'))
       }
 
       if (!sanitizedDescription) {
-        throw new Error('Project description is required')
+        throw new Error(t('errors.descriptionRequired'))
       }
 
       const bucketName = 'projects' 
@@ -145,7 +147,7 @@ export const ProjectForm = ({ initialData }: ProjectFormProps) => {
       
       <div>
         <label htmlFor="title" className="block text-sm font-medium">
-          Title
+          {t('projects.title')}
         </label>
         <input
           id="title"
@@ -159,7 +161,7 @@ export const ProjectForm = ({ initialData }: ProjectFormProps) => {
       
       <div>
         <label htmlFor="description" className="block text-sm font-medium">
-          Description
+          {t('projects.description')}
         </label>
         <textarea
           id="description"
@@ -173,7 +175,7 @@ export const ProjectForm = ({ initialData }: ProjectFormProps) => {
       
       <div>
         <label className="block text-sm font-medium mb-2">
-          Project Files (Optional)
+          {t('projects.filesOptional')}
         </label>
         <FileUploader
           onFilesSelected={handleFilesSelected}
@@ -183,11 +185,11 @@ export const ProjectForm = ({ initialData }: ProjectFormProps) => {
         />
         {files.length > 0 && (
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-            {files.length} file(s) selected
+            {t('projects.filesSelected', { count: files.length })}
           </p>
         )}
         <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-          Note: File uploads may not work if storage permissions haven't been configured by an administrator.
+          {t('projects.storagePermissionsNote')}
         </p>
       </div>
       
@@ -197,14 +199,7 @@ export const ProjectForm = ({ initialData }: ProjectFormProps) => {
           disabled={loading}
           className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 dark:bg-primary-700 dark:hover:bg-primary-600"
         >
-          {loading 
-            ? initialData 
-              ? 'Updating...' 
-              : 'Creating...'
-            : initialData 
-              ? 'Update Project' 
-              : 'Create Project'
-          }
+          {loading ? t('common.loading') : initialData ? t('projects.updateProject') : t('projects.createNewProject')}
         </button>
       </div>
     </form>
