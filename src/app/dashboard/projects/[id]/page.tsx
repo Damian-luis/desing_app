@@ -16,6 +16,7 @@ import { User as UserType, UserRole, Project } from '@/lib/types'
 import { showSuccessToast, showErrorToast } from '@/lib/toast'
 import Image from 'next/image'
 import { formatDistanceToNow } from 'date-fns'
+import { useLanguage } from '@/context/LanguageContext'
 
 interface ProjectPageProps {
   params: { id: string }
@@ -23,7 +24,7 @@ interface ProjectPageProps {
 
 export default function ProjectPage({ params }: ProjectPageProps) {
   const projectId = params.id
-  
+  const { t } = useLanguage()
   const { projects, loading, updateProject } = useProjects()
   const { role, userId } = useAuth()
   const router = useRouter()
@@ -67,14 +68,14 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       })
       
       showSuccessToast({
-        title: 'Designer Assigned',
-        message: 'Designer has been successfully assigned to this project and status updated to "In Progress".'
+        title: t('projects.designerAssigned'),
+        message: t('projects.designerAssignedMessage')
       })
     } catch (error) {
       console.error('Error assigning designer:', error)
       showErrorToast({
-        title: 'Error',
-        message: 'Failed to assign designer to this project.'
+        title: t('common.error'),
+        message: t('projects.assignDesignerError')
       })
     }
   }
@@ -90,14 +91,14 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       })
       
       showSuccessToast({
-        title: 'Project Completed',
-        message: 'Project has been marked as completed.'
+        title: t('projects.projectCompleted'),
+        message: t('projects.projectCompletedMessage')
       })
     } catch (error) {
       console.error('Error completing project:', error)
       showErrorToast({
-        title: 'Error',
-        message: 'Failed to mark project as completed.'
+        title: t('common.error'),
+        message: t('projects.markCompletedError')
       })
     } finally {
       setUpdatingStatus(false)
@@ -148,13 +149,13 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     <ProtectedRoute>
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Project Details</h1>
-          {role === ROLES.PROJECT_MANAGER && (
+          <h1 className="text-2xl font-bold">{t('projects.projectDetails')}</h1>
+          {(role === ROLES.PROJECT_MANAGER || role === ROLES.CLIENT) && (
             <Button 
               variant="outline"
               onClick={() => router.push(`/dashboard/projects/${project.id}/edit`)}
             >
-              Edit Project
+              {t('projects.editProject')}
             </Button>
           )}
           
@@ -165,7 +166,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               className="bg-green-600 hover:bg-green-700 text-white"
             >
               <CheckCircle className="mr-2 h-4 w-4" />
-              Mark as Completed
+              {t('projects.markCompleted')}
             </Button>
           )}
         </div>
@@ -175,7 +176,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         {role === ROLES.PROJECT_MANAGER && (
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Assign Designer</CardTitle>
+              <CardTitle className="text-lg">{t('projects.assignDesigner')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -186,7 +187,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                     onChange={(e) => setSelectedDesigner(e.target.value)}
                     disabled={loadingDesigners || !!project.designer_id}
                   >
-                    <option value="">Select a designer</option>
+                    <option value="">{t('projects.selectDesigner')}</option>
                     {designers.map(designer => (
                       <option key={designer.id} value={designer.id}>
                         {designer.full_name || designer.email}
@@ -197,7 +198,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                     onClick={assignDesigner} 
                     disabled={!selectedDesigner || loadingDesigners || !!project.designer_id}
                   >
-                    Assign
+                    {t('projects.assign')}
                   </Button>
                 </div>
                 {project.designer_id && (
@@ -205,11 +206,11 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                     <div className="flex items-center gap-2">
                       <User className="h-4 w-4" />
                       <span className="font-medium">
-                        Currently assigned to: {assignedDesigner?.full_name || project.designer?.full_name || assignedDesigner?.email || project.designer?.email || project.designer_id}
+                        {t('projects.currentlyAssigned')} {assignedDesigner?.full_name || project.designer?.full_name || assignedDesigner?.email || project.designer?.email || project.designer_id}
                       </span>
                     </div>
                     <div className="text-sm text-green-600 ml-6">
-                      Assigned {getAssignmentTime(project)}
+                      {t('projects.assigned')} {getAssignmentTime(project)}
                     </div>
                   </div>
                 )}
@@ -218,10 +219,10 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           </Card>
         )}
         
-        {/* Project Files Section */}
+  
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Project Files</CardTitle>
+            <CardTitle className="text-lg">{t('projects.projectFiles')}</CardTitle>
           </CardHeader>
           <CardContent>
             {project.files && project.files.length > 0 ? (
@@ -238,7 +239,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                           <div className="relative w-full h-full">
                             <Image 
                               src={file} 
-                              alt={`Project file ${index + 1}`}
+                              alt={`${t('projects.projectFiles')} ${index + 1}`}
                               fill
                               style={{ objectFit: 'contain' }}
                             />
@@ -257,7 +258,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                           rel="noopener noreferrer"
                           className="text-primary hover:underline text-sm"
                         >
-                          View
+                          {t('projects.view')}
                         </a>
                       </div>
                     </div>
@@ -266,7 +267,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               </div>
             ) : (
               <div className="text-center py-8 text-gray-500">
-                No files attached to this project
+                {t('projects.noFiles')}
               </div>
             )}
           </CardContent>

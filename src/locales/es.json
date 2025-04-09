@@ -33,10 +33,7 @@
     "viewAllProjects": "Ver todos los proyectos",
     "recentActivity": "Actividad Reciente",
     "latestUpdates": "Últimas actualizaciones",
-    "status": "Estado:",
-    "statusPending": "pendiente",
-    "statusInProgress": "en progreso",
-    "statusCompleted": "completado"
+    "status": "Estado:"
   },
   "projects": {
     "createNewProject": "Crear Nuevo Proyecto",
@@ -70,7 +67,13 @@
     "startCreating": "Comienza creando un nuevo proyecto",
     "status": "Estado",
     "created": "Creado",
-    "actions": "Acciones"
+    "actions": "Acciones",
+    "designerAssigned": "Diseñador Asignado",
+    "designerAssignedMessage": "El diseñador ha sido asignado correctamente al proyecto y el estado se ha actualizado a 'En Progreso'",
+    "assignDesignerError": "Error al asignar el diseñador al proyecto",
+    "projectCompleted": "Proyecto Completado",
+    "projectCompletedMessage": "El proyecto ha sido marcado como completado",
+    "markCompletedError": "Error al marcar el proyecto como completado"
   },
   "common": {
     "or": "O",

@@ -111,14 +111,16 @@ export const ProjectCard = ({ project, onDelete, hideViewButton = false }: Proje
             </Button>
           )}
           
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => router.push(`/dashboard/projects/${project.id}/edit`)}
-          >
-            <Pencil className="h-4 w-4 mr-1" />
-            {t('projects.edit')} ({role})
-          </Button>
+          {(role === ROLES.PROJECT_MANAGER || role === ROLES.CLIENT) && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => router.push(`/dashboard/projects/${project.id}/edit`)}
+            >
+              <Pencil className="h-4 w-4 mr-1" />
+              {t('projects.edit')}
+            </Button>
+          )}
           
           {onDelete && (
             <Button
@@ -128,7 +130,7 @@ export const ProjectCard = ({ project, onDelete, hideViewButton = false }: Proje
               className="text-red-500 hover:text-red-700"
             >
               <Trash2 className="h-4 w-4 mr-1" />
-              {t('projects.delete')} ({role})
+              {t('projects.delete')}
             </Button>
           )}
         </CardFooter>

@@ -149,14 +149,16 @@ export const ProjectList = () => {
                         <span className="sr-only">{t('projects.view')}</span>
                       </Button>
                       
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => router.push(`/dashboard/projects/${project.id}/edit`)}
-                      >
-                        <Pencil className="h-4 w-4" />
-                        <span className="sr-only">{t('projects.edit')}</span>
-                      </Button>
+                      {(role === ROLES.PROJECT_MANAGER || role === ROLES.CLIENT) && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => router.push(`/dashboard/projects/${project.id}/edit`)}
+                        >
+                          <Pencil className="h-4 w-4" />
+                          <span className="sr-only">{t('projects.edit')}</span>
+                        </Button>
+                      )}
                       
                       <Button
                         variant="ghost"
