@@ -1,0 +1,90 @@
+{
+  "navbar": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "newProject": "New Project"
+  },
+  "auth": {
+    "createAccount": "Create a new account",
+    "signIn": "Sign in",
+    "signInToAccount": "Sign in to your account",
+    "signInToExisting": "Sign in to existing account",
+    "createNewAccount": "Create a new account",
+    "fullName": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "role": "Role",
+    "client": "Client",
+    "designer": "Designer",
+    "projectManager": "Project Manager",
+    "register": "Register",
+    "registering": "Registering...",
+    "signInButton": "Sign in",
+    "signingIn": "Signing in..."
+  },
+  "dashboard": {
+    "welcome": "Welcome,",
+    "totalProjects": "Total Projects",
+    "inProgress": "In Progress",
+    "completed": "Completed",
+    "acrossAllStatuses": "Across all statuses",
+    "activeProjects": "Active projects",
+    "deliveredProjects": "Delivered projects",
+    "viewAllProjects": "View all projects",
+    "recentActivity": "Recent Activity",
+    "latestUpdates": "Your latest project updates",
+    "status": "Status:",
+    "statusPending": "pending",
+    "statusInProgress": "in progress",
+    "statusCompleted": "completed"
+  },
+  "projects": {
+    "createNewProject": "Create New Project",
+    "projectDetails": "Project Details",
+    "editProject": "Edit Project",
+    "title": "Title",
+    "description": "Description",
+    "assignDesigner": "Assign Designer",
+    "selectDesigner": "Select a designer",
+    "assign": "Assign",
+    "currentlyAssigned": "Currently assigned to:",
+    "assigned": "Assigned",
+    "projectFiles": "Project Files",
+    "noFiles": "No files attached to this project",
+    "view": "View",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteConfirm": "Are you sure you want to delete this project?",
+    "deleteWarning": "This action cannot be undone. This will permanently delete the project and all of its data.",
+    "deleting": "Deleting project...",
+    "deleted": "Project deleted successfully",
+    "deleteError": "Failed to delete project",
+    "cancel": "Cancel",
+    "save": "Save",
+    "markCompleted": "Mark as Completed",
+    "uploadFiles": "Upload Files",
+    "dragFiles": "Drag and drop files here or click to select",
+    "maxFileSize": "Max file size: 10MB",
+    "noDescriptionProvided": "No description provided",
+    "noProjects": "No projects found",
+    "startCreating": "Get started by creating a new project",
+    "status": "Status",
+    "created": "Created",
+    "actions": "Actions"
+  },
+  "common": {
+    "or": "Or",
+    "loading": "Loading...",
+    "designManager": "Design Manager",
+    "error": "Error"
+  },
+  "statuses": {
+    "pending": "Pending",
+    "in_progress": "In Progress",
+    "completed": "Completed"
+  },
+  "language": {
+    "en": "English",
+    "es": "Spanish"
+  }
+} 

@@ -1,0 +1,90 @@
+{
+  "navbar": {
+    "dashboard": "Tablero",
+    "projects": "Proyectos",
+    "newProject": "Nuevo Proyecto"
+  },
+  "auth": {
+    "createAccount": "Crear nueva cuenta",
+    "signIn": "Iniciar sesión",
+    "signInToAccount": "Iniciar sesión en tu cuenta",
+    "signInToExisting": "Iniciar sesión en cuenta existente",
+    "createNewAccount": "Crear una nueva cuenta",
+    "fullName": "Nombre completo",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "role": "Rol",
+    "client": "Cliente",
+    "designer": "Diseñador",
+    "projectManager": "Gestor de Proyectos",
+    "register": "Registrarse",
+    "registering": "Registrando...",
+    "signInButton": "Iniciar sesión",
+    "signingIn": "Iniciando sesión..."
+  },
+  "dashboard": {
+    "welcome": "Bienvenido,",
+    "totalProjects": "Proyectos Totales",
+    "inProgress": "En Progreso",
+    "completed": "Completados",
+    "acrossAllStatuses": "Todos los estados",
+    "activeProjects": "Proyectos activos",
+    "deliveredProjects": "Proyectos entregados",
+    "viewAllProjects": "Ver todos los proyectos",
+    "recentActivity": "Actividad Reciente",
+    "latestUpdates": "Últimas actualizaciones",
+    "status": "Estado:",
+    "statusPending": "pendiente",
+    "statusInProgress": "en progreso",
+    "statusCompleted": "completado"
+  },
+  "projects": {
+    "createNewProject": "Crear Nuevo Proyecto",
+    "projectDetails": "Detalles del Proyecto",
+    "editProject": "Editar Proyecto",
+    "title": "Título",
+    "description": "Descripción",
+    "assignDesigner": "Asignar Diseñador",
+    "selectDesigner": "Seleccionar un diseñador",
+    "assign": "Asignar",
+    "currentlyAssigned": "Asignado a:",
+    "assigned": "Asignado",
+    "projectFiles": "Archivos del Proyecto",
+    "noFiles": "No hay archivos adjuntos a este proyecto",
+    "view": "Ver",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "deleteConfirm": "¿Estás seguro de que quieres eliminar este proyecto?",
+    "deleteWarning": "Esta acción no se puede deshacer. Se eliminará permanentemente el proyecto y todos sus datos.",
+    "deleting": "Eliminando proyecto...",
+    "deleted": "Proyecto eliminado correctamente",
+    "deleteError": "Error al eliminar el proyecto",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "markCompleted": "Marcar como Completado",
+    "uploadFiles": "Subir Archivos",
+    "dragFiles": "Arrastra y suelta archivos aquí o haz clic para seleccionar",
+    "maxFileSize": "Tamaño máximo de archivo: 10MB",
+    "noDescriptionProvided": "Sin descripción",
+    "noProjects": "No se encontraron proyectos",
+    "startCreating": "Comienza creando un nuevo proyecto",
+    "status": "Estado",
+    "created": "Creado",
+    "actions": "Acciones"
+  },
+  "common": {
+    "or": "O",
+    "loading": "Cargando...",
+    "designManager": "Gestor de Diseño",
+    "error": "Error"
+  },
+  "statuses": {
+    "pending": "Pendiente",
+    "in_progress": "En Progreso",
+    "completed": "Completado"
+  },
+  "language": {
+    "en": "Inglés",
+    "es": "Español"
+  }
+} 
